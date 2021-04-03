@@ -1,10 +1,14 @@
-resource_manifest_version '44febabe-d386-4d18-afbe-5e627f4af937'
+fx_version 'cerulean'
+game 'gta5'
+
+description 'QB-Spawn'
+version '1.0.0'
 
 client_scripts {
 	'@qb-houses/config.lua',
 	'@qb-apartments/config.lua',
 	'config.lua',
-	'client.lua',
+	'client.lua'
 }
 
 server_scripts {
@@ -20,5 +24,12 @@ files {
 	'html/index.html',
 	'html/style.css',
 	'html/script.js',
-	'html/reset.css',
+	'html/reset.css'
+}
+
+dependencies {
+	'qb-core',
+	'qb-houses',
+	'qb-interior',
+	'qb-apartments'
 }
