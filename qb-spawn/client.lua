@@ -152,7 +152,11 @@ RegisterNUICallback('spawnplayer', function(data)
     local PlayerData = QBCore.Functions.GetPlayerData()
     local insideMeta = PlayerData.metadata["inside"]
 
-    print(type)
+    -- Enable PVP on Spawn
+    SetCanAttackFriendly(PlayerPedId(), true, false)
+    NetworkSetFriendlyFireOption(true)
+
+    --print(type) -- I will leave this as optional
 
     if type == "current" then
         print('current')
