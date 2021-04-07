@@ -35,7 +35,7 @@ $(document).on('click', '.location', function(evt){
         $("#submit-spawn").attr("data-location", location);
         $("#submit-spawn").attr("data-type", type);
         $("#submit-spawn").fadeIn(100)
-        $.post('http://qb-spawn/setCam', JSON.stringify({
+        $.post('https://qb-spawn/setCam', JSON.stringify({
             posname: location,
             type: type,
         }));
@@ -57,12 +57,12 @@ $(document).on('click', '#submit-spawn', function(evt){
         $(".hideContainer").removeClass("hideContainer");
     }, 900);
     if (spawnType !== "appartment") {
-        $.post('http://qb-spawn/spawnplayer', JSON.stringify({
+        $.post('https://qb-spawn/spawnplayer', JSON.stringify({
             spawnloc: location,
             typeLoc: spawnType
         }));
     } else {
-        $.post('http://qb-spawn/chooseAppa', JSON.stringify({
+        $.post('https://qb-spawn/chooseAppa', JSON.stringify({
             appType: location,
         }));
     }
