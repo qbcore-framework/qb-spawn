@@ -156,10 +156,7 @@ RegisterNUICallback('spawnplayer', function(data)
     SetCanAttackFriendly(PlayerPedId(), true, false)
     NetworkSetFriendlyFireOption(true)
 
-    --print(type) -- I will leave this as optional
-
     if type == "current" then
-        print('current')
         SetDisplay(false)
         DoScreenFadeOut(500)
         Citizen.Wait(2000)
@@ -168,7 +165,7 @@ RegisterNUICallback('spawnplayer', function(data)
             SetEntityHeading(PlayerPedId(), PlayerData.position.a)
             FreezeEntityPosition(PlayerPedId(), false)
         end)
-        print(insideMeta.apartment.apartmentType)
+
         if insideMeta.house ~= nil then
             local houseId = insideMeta.house
             TriggerEvent('qb-houses:client:LastLocationHouse', houseId)
@@ -206,9 +203,7 @@ RegisterNUICallback('spawnplayer', function(data)
         SetEntityVisible(PlayerPedId(), true)
         Citizen.Wait(500)
         DoScreenFadeIn(250)
-        print('house')
     elseif type == "normal" then
-        print('normal')
         local pos = QB.Spawns[location].coords
         SetDisplay(false)
         DoScreenFadeOut(500)
