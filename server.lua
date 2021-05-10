@@ -1,5 +1,6 @@
 QBCore = nil
 TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
+
 Citizen.CreateThread(function()
 	local HouseGarages = {}
 	QBCore.Functions.ExecuteSql(false, "SELECT * FROM `houselocations`", function(result)
@@ -44,10 +45,3 @@ QBCore.Functions.CreateCallback('qb-spawn:server:getOwnedHouses', function(sourc
 		cb(nil)
 	end
 end)
-
--- QBCore.Commands.Add("testloc", "Een race stoppen als creator.", {}, false, function(source, args)
--- 	local src = source
--- 	local Player = QBCore.Functions.GetPlayer(src)
--- 	TriggerClientEvent('qb-spawn:client:setupSpawns', src, Player, false, {})
--- 	TriggerClientEvent('qb-spawn:client:openUI', src, true)
--- end)
