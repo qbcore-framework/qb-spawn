@@ -149,10 +149,6 @@ RegisterNUICallback('spawnplayer', function(data)
     local PlayerData = QBCore.Functions.GetPlayerData()
     local insideMeta = PlayerData.metadata["inside"]
 
-    -- Enable PVP on Spawn
-    SetCanAttackFriendly(PlayerPedId(), true, false)
-    NetworkSetFriendlyFireOption(true)
-
     if type == "current" then
         SetDisplay(false)
         DoScreenFadeOut(500)
