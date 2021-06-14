@@ -3,7 +3,7 @@ TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
 
 Citizen.CreateThread(function()
 	local HouseGarages = {}
-	QBCore.Functions.ExecuteSql(false, "SELECT * FROM `houselocations`", function(result)
+	QBCore.Functions.ExecuteSql(false, nil, "SELECT * FROM `houselocations`", function(result)
 		if result[1] ~= nil then
 			for k, v in pairs(result) do
 				local owned = false
@@ -34,7 +34,7 @@ end)
 
 QBCore.Functions.CreateCallback('qb-spawn:server:getOwnedHouses', function(source, cb, cid)
 	if cid ~= nil then
-		QBCore.Functions.ExecuteSql(false, 'SELECT * FROM `player_houses` WHERE `citizenid` = "'..cid..'"', function(houses)
+		QBCore.Functions.ExecuteSql(false, {['a'] = cid}, 'SELECT * FROM `player_houses` WHERE `citizenid` = @a', function(houses)
 			if houses[1] ~= nil then
 				cb(houses)
 			else
