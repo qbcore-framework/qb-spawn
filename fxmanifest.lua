@@ -4,19 +4,15 @@ game 'gta5'
 description 'QB-Spawn'
 version '1.0.0'
 
-client_scripts {
-	'@qb-houses/config.lua',
-	'@qb-apartments/config.lua',
+shared_scripts {
 	'config.lua',
-	'client.lua'
+	'@qb-core/import.lua',
+	'@qb-houses/config.lua',
+	'@qb-apartments/config.lua'
 }
 
-server_scripts {
-	'@qb-houses/config.lua',
-	'@qb-apartments/config.lua',
-	'config.lua',
-	'server.lua'
-}
+client_script 'client.lua'
+server_script 'server.lua'
 
 ui_page 'html/index.html'
 
