@@ -1,48 +1,52 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 .container {
-    font-family: 'Source Sans Pro', monospace;
+    font-family: 'Poppins', sans-serif;
 }
  
 .spawn-locations {
+    text-transform: uppercase;
     position: absolute;
     top: 10vh;
     left: 10vh;
+    background-color: rgb(23 23 23 / 80%);
+    border-radius: .8vh;
+    padding: 30px;
 }
 
 .location {
-    background-color: rgba(10, 10, 10, 0.8);
     width: 28vh;
     height: 4.5vh;
-    margin-bottom: .75vh;
+    margin-bottom: 2vh;
     transition: 0.2s;
+    transition: .1s linear;
+    border-radius: .3vh;
 }
 
 .location > p {
     position: relative;
-    color: white;
+    color: #ededed;
     text-align: center;
     line-height: 4.5vh;
-    font-size: 1.4vh;
+    font-size: 1.8vh;
 }
 
 .location:hover {
-    background-color: #ff3737a6;
+    background-color: #dc143c;
     transition: 0.2s;
 }
 
 .selected {
-    background-color: #b12424a6;
+    background-color: #dc143c;
 }
 
 .submit-spawn {
-    background-color: rgba(32, 158, 16, 0.75);
+    background-color: #28a745;
     width: 28vh;
     height: 4.5vh;
     margin-bottom: .75vh;
     transition: 0.2s;
+    border-radius: .3vh;
 }
 
 .submit-spawn > p {
@@ -50,36 +54,33 @@
     color: white;
     text-align: center;
     line-height: 4.5vh;
-    font-size: 13px;
-    font-family: 'Lato';
+    font-size: 1.6vh;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
     font-weight: bold;
 }
 
 .submit-spawn:hover {
-    background-color: rgba(32, 158, 16, 0.85);
     transition: 0.2s;
 }
 
 #spawn-label {
+    color: #ededed;
     font-weight: bold;
 }
 
 .loclabel {
     width: 28vh;
-    height: 4.5vh;
-    margin-bottom: .75vh;
+    height: 4vh;
     transition: 0.2s;
-    background-color: rgba(255, 255, 255, 0.75);
 }
 
 .loclabel > p {
-    font-family: 'Lato';
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
     font-weight: bold;
     position: relative;
-    color: black;
+    color: #ededed;
     text-align: center;
-    line-height: 4.5vh;
-    font-size: 13px;
+    font-size: 1.5vh;
 }
