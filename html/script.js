@@ -35,7 +35,7 @@ $(document).on('click', '.location', function(evt){
         $("#submit-spawn").attr("data-location", location);
         $("#submit-spawn").attr("data-type", type);
         $("#submit-spawn").fadeIn(100)
-        $.post('https://qb-spawn/setCam', JSON.stringify({
+        $.post(`https://${GetParentResourceName()}/setCam`, JSON.stringify({
             posname: location,
             type: type,
         }));
@@ -51,18 +51,18 @@ $(document).on('click', '#submit-spawn', function(evt){
     evt.preventDefault(); //dont do default anchor stuff
     var location = $(this).data('location');
     var spawnType = $(this).data('type');
-    console.log(spawnType)
+    // console.log(spawnType)
     $(".container").addClass("hideContainer").fadeOut("9000");
     setTimeout(function(){
         $(".hideContainer").removeClass("hideContainer");
     }, 900);
     if (spawnType !== "appartment") {
-        $.post('https://qb-spawn/spawnplayer', JSON.stringify({
+        $.post(`https://${GetParentResourceName()}/spawnplayer`, JSON.stringify({
             spawnloc: location,
             typeLoc: spawnType
         }));
     } else {
-        $.post('https://qb-spawn/chooseAppa', JSON.stringify({
+        $.post(`https://${GetParentResourceName()}/chooseAppa`, JSON.stringify({
             appType: location,
         }));
     }
