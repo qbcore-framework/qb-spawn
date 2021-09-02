@@ -56,7 +56,7 @@ $(document).on('click', '#submit-spawn', function(evt){
     setTimeout(function(){
         $(".hideContainer").removeClass("hideContainer");
     }, 900);
-    if (spawnType !== "appartment") {
+    if (spawnType !== "apartment") {
         $.post('https://qb-spawn/spawnplayer', JSON.stringify({
             spawnloc: location,
             typeLoc: spawnType
