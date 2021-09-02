@@ -260,7 +260,7 @@ AddEventHandler('qb-spawn:client:setupSpawns', function(cData, new, apps)
         end, cData.citizenid)
     elseif new then
         SendNUIMessage({
-            action = "setupAppartements",
+            action = "setupApartements",
             locations = apps,
         })
     end
