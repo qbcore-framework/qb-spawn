@@ -8,7 +8,7 @@ Spawn Selector for QB-Core Framework :eagle:
 - [qb-garages](https://github.com/qbcore-framework/qb-houses) - For house garages
 
 ## Screenshots
-![Spawn selector](https://imgur.com/UnomCUR.png)
+![Spawn selector](https://i.imgur.com/nz0mPGe.png)
 
 ## Features
 - Ability to select spawn after selecting the character
