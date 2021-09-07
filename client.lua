@@ -150,7 +150,7 @@ RegisterNUICallback('spawnplayer', function(data)
         PostSpawnPlayer()
     elseif type == "normal" then
         local pos = QB.Spawns[location].coords
-        preSpawnPlayer()
+        PreSpawnPlayer()
         SetEntityCoords(ped, pos.x, pos.y, pos.z)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
