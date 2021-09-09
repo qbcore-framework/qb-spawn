@@ -4,7 +4,6 @@ local pointCamCoords = 75
 local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
-
 local choosingSpawn = false
 
 RegisterNetEvent('qb-spawn:client:openUI')
