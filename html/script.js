@@ -51,7 +51,7 @@ $(document).on('click', '#submit-spawn', function(evt){
     evt.preventDefault(); //dont do default anchor stuff
     var location = $(this).data('location');
     var spawnType = $(this).data('type');
-    console.log(spawnType)
+    //console.log(spawnType)
     $(".container").addClass("hideContainer").fadeOut("9000");
     setTimeout(function(){
         $(".hideContainer").removeClass("hideContainer");
