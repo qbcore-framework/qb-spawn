@@ -17,7 +17,7 @@ $(document).ready(function() {
             setupLocations(data.locations, data.houses)
         }
 
-        if (data.action == "setupAppartements") {
+        if (data.action == "setupApartements") {
             setupApps(data.locations)
         }
     })
