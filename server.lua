@@ -1,6 +1,6 @@
 Citizen.CreateThread(function()
 	local HouseGarages = {}
-	local result = exports.ghmattimysql:executeSync('SELECT * FROM houselocations')
+	local result = exports.oxmysql:fetchSync('SELECT * FROM houselocations', {})
 	if result[1] ~= nil then
 		for k, v in pairs(result) do
 			local owned = false
@@ -30,7 +30,7 @@ end)
 
 QBCore.Functions.CreateCallback('qb-spawn:server:getOwnedHouses', function(source, cb, cid)
 	if cid ~= nil then
-		local houses = exports.ghmattimysql:executeSync('SELECT * FROM player_houses WHERE citizenid=@citizenid', {['@citizenid'] = cid})
+		local houses = exports.oxmysql:fetchSync('SELECT * FROM player_houses WHERE citizenid=@citizenid', {['@citizenid'] = cid})
 		if houses[1] ~= nil then
 			cb(houses)
 		else

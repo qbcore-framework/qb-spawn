@@ -51,7 +51,6 @@ $(document).on('click', '#submit-spawn', function(evt){
     evt.preventDefault(); //dont do default anchor stuff
     var location = $(this).data('location');
     var spawnType = $(this).data('type');
-    console.log(spawnType)
     $(".container").addClass("hideContainer").fadeOut("9000");
     setTimeout(function(){
         $(".hideContainer").removeClass("hideContainer");
@@ -96,7 +95,7 @@ function setupApps(apps) {
     var parent = $('.spawn-locations')
     $(parent).html("");
 
-    $(parent).append('<div class="loclabel" id="location" data-location="null" data-type="lab" data-label="Choose a apartment"><p><span id="null">Choose a apartment</span></p></div>')
+    $(parent).append('<div class="loclabel" id="location" data-location="null" data-type="lab" data-label="Choose a apartment"><p><span id="null">Choose An Apartment</span></p></div>')
 
     $.each(apps, function(index, app){
         $(parent).append('<div class="location" id="location" data-location="'+app.name+'" data-type="appartment" data-label="'+app.label+'"><p><span id="'+app.name+'">'+app.label+'</span></p></div>')
