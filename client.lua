@@ -96,7 +96,7 @@ RegisterNUICallback('setCam', function(data)
         PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
         SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
         SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
-    elseif type == "appartment" then
+    elseif type == "apartment" then
         local campos = Apartments.Locations[location].coords.enter
 
         cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
@@ -260,7 +260,7 @@ AddEventHandler('qb-spawn:client:setupSpawns', function(cData, new, apps)
         end, cData.citizenid)
     elseif new then
         SendNUIMessage({
-            action = "setupAppartements",
+            action = "setupApartments",
             locations = apps,
         })
     end

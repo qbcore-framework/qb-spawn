@@ -17,7 +17,7 @@ $(document).ready(function() {
             setupLocations(data.locations, data.houses)
         }
 
-        if (data.action == "setupAppartements") {
+        if (data.action == "setupApartments") {
             setupApps(data.locations)
         }
     })
@@ -55,7 +55,7 @@ $(document).on('click', '#submit-spawn', function(evt){
     setTimeout(function(){
         $(".hideContainer").removeClass("hideContainer");
     }, 900);
-    if (spawnType !== "appartment") {
+    if (spawnType !== "apartment") {
         $.post('https://qb-spawn/spawnplayer', JSON.stringify({
             spawnloc: location,
             typeLoc: spawnType
@@ -98,7 +98,7 @@ function setupApps(apps) {
     $(parent).append('<div class="loclabel" id="location" data-location="null" data-type="lab" data-label="Choose a apartment"><p><span id="null">Choose An Apartment</span></p></div>')
 
     $.each(apps, function(index, app){
-        $(parent).append('<div class="location" id="location" data-location="'+app.name+'" data-type="appartment" data-label="'+app.label+'"><p><span id="'+app.name+'">'+app.label+'</span></p></div>')
+        $(parent).append('<div class="location" id="location" data-location="'+app.name+'" data-type="apartment"data-label="'+app.label+'"><p><span id="'+app.name+'">'+app.label+'</span></p></div>')
     });
 
     $(parent).append('<div class="submit-spawn" id="submit-spawn"><p><span id="spawn-label"></span></p></div>');
