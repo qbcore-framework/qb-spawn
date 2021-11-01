@@ -26,7 +26,7 @@ RegisterNetEvent('qb-spawn:client:openUI', function(value)
     DoScreenFadeOut(250)
     Citizen.Wait(1000)
     DoScreenFadeIn(250)
-    QBCore.Functions.GetPlayerData(function(PlayerData)     
+    QBCore.Functions.GetPlayerData(function(PlayerData)
         cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", PlayerData.position.x, PlayerData.position.y, PlayerData.position.z + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
@@ -78,6 +78,24 @@ RegisterNUICallback("exit", function(data)
     choosingSpawn = false
 end)
 
+local cam = nil
+local cam2 = nil
+
+local function SetCam(campos)
+    cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
+    PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
+    SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
+    if DoesCamExist(cam) then
+        DestroyCam(cam, true)
+    end
+    Citizen.Wait(cam1Time)
+
+    cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
+    PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
+    SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
+    SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
+end
+
 RegisterNUICallback('setCam', function(data)
     local location = tostring(data.posname)
     local type = tostring(data.type)
@@ -96,65 +114,14 @@ RegisterNUICallback('setCam', function(data)
 
     if type == "current" then
         QBCore.Functions.GetPlayerData(function(PlayerData)
-            cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", PlayerData.position.x, PlayerData.position.y, PlayerData.position.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
-            PointCamAtCoord(cam2, PlayerData.position.x, PlayerData.position.y, PlayerData.position.z + pointCamCoords)
-            SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
-            -- SetCamActiveWithInterp(camTo, camFrom, duration, easeLocation, easeRotation)
-            if DoesCamExist(cam) then
-                DestroyCam(cam, true)
-            end
-            Citizen.Wait(cam1Time)
-
-            cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", PlayerData.position.x, PlayerData.position.y, PlayerData.position.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
-            PointCamAtCoord(cam, PlayerData.position.x, PlayerData.position.y, PlayerData.position.z + pointCamCoords2)
-            SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
-            SetEntityCoords(PlayerPedId(), PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
+            SetCam(PlayerData.position)
         end)
     elseif type == "house" then
-        local campos = Config.Houses[location].coords.enter
-
-        cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
-        PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
-        SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
-        if DoesCamExist(cam) then
-            DestroyCam(cam, true)
-        end
-        Citizen.Wait(cam1Time)
-
-        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
-        PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
-        SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
-        SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
+        SetCam(Config.Houses[location].coords.enter)
     elseif type == "normal" then
-        local campos = QB.Spawns[location].coords
-
-        cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
-        PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
-        SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
-        if DoesCamExist(cam) then
-            DestroyCam(cam, true)
-        end
-        Citizen.Wait(cam1Time)
-
-        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
-        PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
-        SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
-        SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
+        SetCam(QB.Spawns[location].coords)
     elseif type == "appartment" then
-        local campos = Apartments.Locations[location].coords.enter
-
-        cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
-        PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
-        SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
-        if DoesCamExist(cam) then
-            DestroyCam(cam, true)
-        end
-        Citizen.Wait(cam1Time)
-
-        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
-        PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
-        SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
-        SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
+        SetCam(Apartments.Locations[location].coords.enter)
     end
 end)
 
@@ -175,6 +142,24 @@ RegisterNUICallback('chooseAppa', function(data)
     SetEntityVisible(PlayerPedId(), true)
 end)
 
+local function PreSpawnPlayer()
+    SetDisplay(false)
+    DoScreenFadeOut(500)
+    Citizen.Wait(2000)
+end
+
+local function PostSpawnPlayer(ped)
+    FreezeEntityPosition(ped, false)
+    RenderScriptCams(false, true, 500, true, true)
+    SetCamActive(cam, false)
+    DestroyCam(cam, true)
+    SetCamActive(cam2, false)
+    DestroyCam(cam2, true)
+    SetEntityVisible(PlayerPedId(), true)
+    Citizen.Wait(500)
+    DoScreenFadeIn(250)
+end
+
 RegisterNUICallback('spawnplayer', function(data)
     local location = tostring(data.spawnloc)
     local type = tostring(data.typeLoc)
@@ -183,9 +168,7 @@ RegisterNUICallback('spawnplayer', function(data)
     local insideMeta = PlayerData.metadata["inside"]
 
     if type == "current" then
-        SetDisplay(false)
-        DoScreenFadeOut(500)
-        Citizen.Wait(2000)
+        PreSpawnPlayer()
         QBCore.Functions.GetPlayerData(function(PlayerData)
             SetEntityCoords(PlayerPedId(), PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
             SetEntityHeading(PlayerPedId(), PlayerData.position.a)
@@ -202,38 +185,18 @@ RegisterNUICallback('spawnplayer', function(data)
         end
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
-        FreezeEntityPosition(ped, false)
-        RenderScriptCams(false, true, 500, true, true)
-        SetCamActive(cam, false)
-        DestroyCam(cam, true)
-        SetCamActive(cam2, false)
-        DestroyCam(cam2, true)
-        SetEntityVisible(PlayerPedId(), true)
-        Citizen.Wait(500)
-        DoScreenFadeIn(250)
+        PostSpawnPlayer()
     elseif type == "house" then
-        SetDisplay(false)
-        DoScreenFadeOut(500)
-        Citizen.Wait(2000)
+        PreSpawnPlayer()
         TriggerEvent('qb-houses:client:enterOwnedHouse', location)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
         TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
         TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
-        FreezeEntityPosition(ped, false)
-        RenderScriptCams(false, true, 500, true, true)
-        SetCamActive(cam, false)
-        DestroyCam(cam, true)
-        SetCamActive(cam2, false)
-        DestroyCam(cam2, true)
-        SetEntityVisible(PlayerPedId(), true)
-        Citizen.Wait(500)
-        DoScreenFadeIn(250)
+        PostSpawnPlayer()
     elseif type == "normal" then
         local pos = QB.Spawns[location].coords
-        SetDisplay(false)
-        DoScreenFadeOut(500)
-        Citizen.Wait(2000)
+        PreSpawnPlayer()
         SetEntityCoords(ped, pos.x, pos.y, pos.z)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
@@ -242,15 +205,7 @@ RegisterNUICallback('spawnplayer', function(data)
         Citizen.Wait(500)
         SetEntityCoords(ped, pos.x, pos.y, pos.z)
         SetEntityHeading(ped, pos.w)
-        FreezeEntityPosition(ped, false)
-        RenderScriptCams(false, true, 500, true, true)
-        SetCamActive(cam, false)
-        DestroyCam(cam, true)
-        SetCamActive(cam2, false)
-        DestroyCam(cam2, true)
-        SetEntityVisible(PlayerPedId(), true)
-        Citizen.Wait(500)
-        DoScreenFadeIn(250)
+        PostSpawnPlayer()
     end
 end)
 
