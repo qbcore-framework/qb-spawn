@@ -4,11 +4,24 @@ local pointCamCoords = 75
 local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
-
 local choosingSpawn = false
+local cam, cam2 = nil, nil
+local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('qb-spawn:client:openUI')
-AddEventHandler('qb-spawn:client:openUI', function(value)
+-- Functions
+
+local function SetDisplay(bool)
+    choosingSpawn = bool
+    SetNuiFocus(bool, bool)
+    SendNUIMessage({
+        type = "ui",
+        status = bool
+    })
+end
+
+-- Events
+
+RegisterNetEvent('qb-spawn:client:openUI', function(value)
     SetEntityVisible(PlayerPedId(), false)
     DoScreenFadeOut(250)
     Citizen.Wait(1000)
@@ -21,6 +34,40 @@ AddEventHandler('qb-spawn:client:openUI', function(value)
     Citizen.Wait(500)
     SetDisplay(value)
 end)
+
+RegisterNetEvent('qb-houses:client:setHouseConfig', function(houseConfig)
+    Config.Houses = houseConfig
+end)
+
+RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
+    if not new then
+        QBCore.Functions.TriggerCallback('qb-spawn:server:getOwnedHouses', function(houses)
+            local myHouses = {}
+            if houses ~= nil then
+                for i = 1, (#houses), 1 do
+                    table.insert(myHouses, {
+                        house = houses[i].house,
+                        label = Config.Houses[houses[i].house].adress,
+                    })
+                end
+            end
+
+            Citizen.Wait(500)
+            SendNUIMessage({
+                action = "setupLocations",
+                locations = QB.Spawns,
+                houses = myHouses,
+            })
+        end, cData.citizenid)
+    elseif new then
+        SendNUIMessage({
+            action = "setupAppartements",
+            locations = apps,
+        })
+    end
+end)
+
+-- NUI Callbacks
 
 RegisterNUICallback("exit", function(data)
     SetNuiFocus(false, false)
@@ -80,7 +127,6 @@ end)
 
 RegisterNUICallback('chooseAppa', function(data)
     local appaYeet = data.appType
-
     SetDisplay(false)
     DoScreenFadeOut(500)
     Citizen.Wait(5000)
@@ -163,57 +209,15 @@ RegisterNUICallback('spawnplayer', function(data)
     end
 end)
 
-function SetDisplay(bool)
-    choosingSpawn = bool
-    SetNuiFocus(bool, bool)
-    SendNUIMessage({
-        type = "ui",
-        status = bool
-    })
-end
+-- Threads
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-
         if choosingSpawn then
             DisableAllControlActions(0)
         else
             Citizen.Wait(1000)
         end
-    end
-end)
-
-RegisterNetEvent('qb-houses:client:setHouseConfig')
-AddEventHandler('qb-houses:client:setHouseConfig', function(houseConfig)
-    Config.Houses = houseConfig
-end)
-
-RegisterNetEvent('qb-spawn:client:setupSpawns')
-AddEventHandler('qb-spawn:client:setupSpawns', function(cData, new, apps)
-    if not new then
-        QBCore.Functions.TriggerCallback('qb-spawn:server:getOwnedHouses', function(houses)
-            local myHouses = {}
-            if houses ~= nil then
-                for i = 1, (#houses), 1 do
-                    table.insert(myHouses, {
-                        house = houses[i].house,
-                        label = Config.Houses[houses[i].house].adress,
-                    })
-                end
-            end
-
-            Citizen.Wait(500)
-            SendNUIMessage({
-                action = "setupLocations",
-                locations = QB.Spawns,
-                houses = myHouses,
-            })
-        end, cData.citizenid)
-    elseif new then
-        SendNUIMessage({
-            action = "setupAppartements",
-            locations = apps,
-        })
     end
 end)
