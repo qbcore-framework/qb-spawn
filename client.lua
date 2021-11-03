@@ -45,10 +45,10 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
             local myHouses = {}
             if houses ~= nil then
                 for i = 1, (#houses), 1 do
-                    table.insert(myHouses, {
+                    myHouses[#myHouses+1] = {
                         house = houses[i].house,
                         label = Config.Houses[houses[i].house].adress,
-                    })
+                    }
                 end
             end
 
