@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local camZPlus1 = 1500
 local camZPlus2 = 50
 local pointCamCoords = 75
@@ -6,7 +7,6 @@ local cam1Time = 500
 local cam2Time = 1000
 local choosingSpawn = false
 local cam, cam2 = nil, nil
-local QBCore = exports['qb-core']:GetCoreObject()
 
 -- Functions
 

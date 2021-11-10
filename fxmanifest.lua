@@ -5,15 +5,12 @@ description 'QB-Spawn'
 version '1.0.0'
 
 shared_scripts {
+	'config.lua',
 	'@qb-houses/config.lua',
 	'@qb-apartments/config.lua'
 }
 
-client_scripts {
-	'config.lua',
-	'client.lua'
-}
-
+client_script 'client.lua'
 server_script 'server.lua'
 
 ui_page 'html/index.html'
@@ -25,9 +22,4 @@ files {
 	'html/reset.css'
 }
 
-dependencies {
-	'qb-core',
-	'qb-houses',
-	'qb-interior',
-	'qb-apartments'
-}
+lua54 'yes'
