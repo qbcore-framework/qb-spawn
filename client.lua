@@ -24,14 +24,14 @@ end
 RegisterNetEvent('qb-spawn:client:openUI', function(value)
     SetEntityVisible(PlayerPedId(), false)
     DoScreenFadeOut(250)
-    Citizen.Wait(1000)
+    Wait(1000)
     DoScreenFadeIn(250)
     QBCore.Functions.GetPlayerData(function(PlayerData)
         cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", PlayerData.position.x, PlayerData.position.y, PlayerData.position.z + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
     end)
-    Citizen.Wait(500)
+    Wait(500)
     SetDisplay(value)
 end)
 
@@ -52,7 +52,7 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
                 end
             end
 
-            Citizen.Wait(500)
+            Wait(500)
             SendNUIMessage({
                 action = "setupLocations",
                 locations = QB.Spawns,
@@ -88,7 +88,7 @@ local function SetCam(campos)
     if DoesCamExist(cam) then
         DestroyCam(cam, true)
     end
-    Citizen.Wait(cam1Time)
+    Wait(cam1Time)
 
     cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
     PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
@@ -101,7 +101,7 @@ RegisterNUICallback('setCam', function(data)
     local type = tostring(data.type)
 
     DoScreenFadeOut(200)
-    Citizen.Wait(500)
+    Wait(500)
     DoScreenFadeIn(200)
 
     if DoesCamExist(cam) then
@@ -129,7 +129,7 @@ RegisterNUICallback('chooseAppa', function(data)
     local appaYeet = data.appType
     SetDisplay(false)
     DoScreenFadeOut(500)
-    Citizen.Wait(5000)
+    Wait(5000)
     TriggerServerEvent("apartments:server:CreateApartment", appaYeet, Apartments.Locations[appaYeet].label)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
@@ -145,7 +145,7 @@ end)
 local function PreSpawnPlayer()
     SetDisplay(false)
     DoScreenFadeOut(500)
-    Citizen.Wait(2000)
+    Wait(2000)
 end
 
 local function PostSpawnPlayer(ped)
@@ -156,7 +156,7 @@ local function PostSpawnPlayer(ped)
     SetCamActive(cam2, false)
     DestroyCam(cam2, true)
     SetEntityVisible(PlayerPedId(), true)
-    Citizen.Wait(500)
+    Wait(500)
     DoScreenFadeIn(250)
 end
 
@@ -202,7 +202,7 @@ RegisterNUICallback('spawnplayer', function(data)
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
         TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
         TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
-        Citizen.Wait(500)
+        Wait(500)
         SetEntityCoords(ped, pos.x, pos.y, pos.z)
         SetEntityHeading(ped, pos.w)
         PostSpawnPlayer()
@@ -211,13 +211,13 @@ end)
 
 -- Threads
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Wait(0)
         if choosingSpawn then
             DisableAllControlActions(0)
         else
-            Citizen.Wait(1000)
+            Wait(1000)
         end
     end
 end)
