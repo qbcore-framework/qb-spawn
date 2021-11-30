@@ -3,7 +3,7 @@
 .container {
     font-family: 'Poppins', sans-serif;
 }
- 
+
 .spawn-locations {
     text-transform: uppercase;
     position: absolute;
@@ -12,6 +12,7 @@
     background-color: rgb(23 23 23 / 80%);
     border-radius: .8vh;
     padding: 30px;
+    cursor: default;
 }
 
 .location {
@@ -21,6 +22,7 @@
     transition: 0.2s;
     transition: .1s linear;
     border-radius: .3vh;
+    cursor: pointer;
 }
 
 .location > p {
@@ -47,6 +49,7 @@
     margin-bottom: .75vh;
     transition: 0.2s;
     border-radius: .3vh;
+    cursor: pointer;
 }
 
 .submit-spawn > p {
