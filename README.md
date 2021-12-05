@@ -24,7 +24,7 @@ Spawn Selector for QB-Core Framework :eagle:
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-houses](https://github.com/qbcore-framework/qb-houses) - Lets player select the house
 - [qb-apartment](https://github.com/qbcore-framework/qb-apartment) - Lets player select the apartment
-- [qb-garages](https://github.com/qbcore-framework/qb-houses) - For house garages
+- [qb-garages](https://github.com/qbcore-framework/qb-garages) - For house garages
 
 ## Screenshots
 ![Spawn selector](https://i.imgur.com/nz0mPGe.png)
