@@ -126,6 +126,7 @@ RegisterNUICallback('setCam', function(data)
 end)
 
 RegisterNUICallback('chooseAppa', function(data)
+    local ped = PlayerPedId()
     local appaYeet = data.appType
     SetDisplay(false)
     DoScreenFadeOut(500)
@@ -139,7 +140,7 @@ RegisterNUICallback('chooseAppa', function(data)
     DestroyCam(cam, true)
     SetCamActive(cam2, false)
     DestroyCam(cam2, true)
-    SetEntityVisible(PlayerPedId(), true)
+    SetEntityVisible(ped, true)
 end)
 
 local function PreSpawnPlayer()
