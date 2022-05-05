@@ -71,7 +71,7 @@ function setupLocations(locations, myHouses) {
     var parent = $('.spawn-locations')
     $(parent).html("");
 
-    $(parent).append('<div class="loclabel" id="location" data-location="null" data-type="lab" data-label="¿Dónde quieres empezar?"><p><span id="null">¿En dónde te gustaría comenzar?</span></p></div>')
+    $(parent).append('<div class="loclabel" id="location" data-location="null" data-type="lab" data-label="¿Dónde quieres empezar?"><p><span id="null">¿Dónde quieres empezar?</span></p></div>')
     
     setTimeout(function(){
         $(parent).append('<div class="location" id="location" data-location="current" data-type="current" data-label="Última ubicación"><p><span id="current-location">Última ubicación</span></p></div>');
