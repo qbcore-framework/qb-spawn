@@ -6,7 +6,9 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local choosingSpawn = false
-local cam, cam2 = nil, nil
+local Houses = {}
+local cam = nil
+local cam2 = nil
 
 -- Functions
 
@@ -36,7 +38,7 @@ RegisterNetEvent('qb-spawn:client:openUI', function(value)
 end)
 
 RegisterNetEvent('qb-houses:client:setHouseConfig', function(houseConfig)
-    Config.Houses = houseConfig
+    Houses = houseConfig
 end)
 
 RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
@@ -47,7 +49,7 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
                 for i = 1, (#houses), 1 do
                     myHouses[#myHouses+1] = {
                         house = houses[i].house,
-                        label = Config.Houses[houses[i].house].adress,
+                        label = Houses[houses[i].house].adress,
                     }
                 end
             end
@@ -69,17 +71,15 @@ end)
 
 -- NUI Callbacks
 
-RegisterNUICallback("exit", function(data)
+RegisterNUICallback("exit", function(_, cb)
     SetNuiFocus(false, false)
     SendNUIMessage({
         type = "ui",
         status = false
     })
     choosingSpawn = false
+    cb("ok")
 end)
-
-local cam = nil
-local cam2 = nil
 
 local function SetCam(campos)
     cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
@@ -117,7 +117,7 @@ RegisterNUICallback('setCam', function(data)
             SetCam(PlayerData.position)
         end)
     elseif type == "house" then
-        SetCam(Config.Houses[location].coords.enter)
+        SetCam(Houses[location].coords.enter)
     elseif type == "normal" then
         SetCam(QB.Spawns[location].coords)
     elseif type == "appartment" then
@@ -170,10 +170,11 @@ RegisterNUICallback('spawnplayer', function(data)
 
     if type == "current" then
         PreSpawnPlayer()
-        QBCore.Functions.GetPlayerData(function(PlayerData)
-            SetEntityCoords(PlayerPedId(), PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
-            SetEntityHeading(PlayerPedId(), PlayerData.position.a)
-            FreezeEntityPosition(PlayerPedId(), false)
+        QBCore.Functions.GetPlayerData(function(pd)
+            ped = PlayerPedId()
+            SetEntityCoords(ped, pd.position.x, pd.position.y, pd.position.z)
+            SetEntityHeading(ped, pd.position.a)
+            FreezeEntityPosition(ped, false)
         end)
 
         if insideMeta.house ~= nil then
