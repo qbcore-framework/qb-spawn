@@ -96,22 +96,14 @@ local function SetCam(campos)
     SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
 end
 
-RegisterNUICallback('setCam', function(data)
+RegisterNUICallback('setCam', function(data, cb)
     local location = tostring(data.posname)
     local type = tostring(data.type)
-
     DoScreenFadeOut(200)
     Wait(500)
     DoScreenFadeIn(200)
-
-    if DoesCamExist(cam) then
-        DestroyCam(cam, true)
-    end
-
-    if DoesCamExist(cam2) then
-        DestroyCam(cam2, true)
-    end
-
+    if DoesCamExist(cam) then DestroyCam(cam, true) end
+    if DoesCamExist(cam2) then DestroyCam(cam2, true) end
     if type == "current" then
         QBCore.Functions.GetPlayerData(function(PlayerData)
             SetCam(PlayerData.position)
@@ -123,9 +115,10 @@ RegisterNUICallback('setCam', function(data)
     elseif type == "appartment" then
         SetCam(Apartments.Locations[location].coords.enter)
     end
+    cb('ok')
 end)
 
-RegisterNUICallback('chooseAppa', function(data)
+RegisterNUICallback('chooseAppa', function(data, cb)
     local ped = PlayerPedId()
     local appaYeet = data.appType
     SetDisplay(false)
@@ -141,6 +134,7 @@ RegisterNUICallback('chooseAppa', function(data)
     SetCamActive(cam2, false)
     DestroyCam(cam2, true)
     SetEntityVisible(ped, true)
+    cb('ok')
 end)
 
 local function PreSpawnPlayer()
@@ -161,13 +155,12 @@ local function PostSpawnPlayer(ped)
     DoScreenFadeIn(250)
 end
 
-RegisterNUICallback('spawnplayer', function(data)
+RegisterNUICallback('spawnplayer', function(data, cb)
     local location = tostring(data.spawnloc)
     local type = tostring(data.typeLoc)
     local ped = PlayerPedId()
     local PlayerData = QBCore.Functions.GetPlayerData()
     local insideMeta = PlayerData.metadata["inside"]
-
     if type == "current" then
         PreSpawnPlayer()
         QBCore.Functions.GetPlayerData(function(pd)
@@ -209,6 +202,7 @@ RegisterNUICallback('spawnplayer', function(data)
         SetEntityHeading(ped, pos.w)
         PostSpawnPlayer()
     end
+    cb('ok')
 end)
 
 -- Threads
