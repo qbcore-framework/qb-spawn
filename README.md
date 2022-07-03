@@ -39,7 +39,7 @@ Spawn Selector for QB-Core Framework :eagle:
 ```
 ensure qb-core
 ensure qb-spawn
-ensure qb-apartmen
+ensure qb-apartments
 ensure qb-garages
 ```
 
