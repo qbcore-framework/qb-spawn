@@ -33,7 +33,7 @@
                             v-for="(location, locationIdx) in locations"
                             :key="locationGroupIdx + '-' + locationIdx"
                             elevation="0" color="#00000000" 
-                            :class="{'selected': locationGroupIdx == selectedValue.type && locationIdx == selectedValue.name}" 
+                            :class="{'selected': locationGroupIdx == selectedValue.type && ((locationGroupIdx !== 'house' && locationIdx == selectedValue.name) || (locationGroupIdx == 'house' && location.house == selectedValue.name))}" 
                             class="location" x-large v-ripple @click="click_location(locationGroupIdx, locationGroupIdx == 'house' ? location.house : locationIdx)"
                         >
                             {{ location.label }}
