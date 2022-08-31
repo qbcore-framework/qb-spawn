@@ -21,7 +21,6 @@ files {
 	'html/index.html',
 	'html/style.css',
 	'html/vue.js',
-	'html/script.js',
 	'html/reset.css'
 }
 
