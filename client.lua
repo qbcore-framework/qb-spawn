@@ -13,11 +13,18 @@ local cam2 = nil
 -- Functions
 
 local function SetDisplay(bool)
+     local translations = {}
+     for k in pairs(Lang.fallback and Lang.fallback.phrases or Lang.phrases) do
+        if k:sub(0, ('showUi.'):len()) then
+            translations[k:sub(('showUi.'):len() + 1)] = Lang:t(k)
+        end
+    end
     choosingSpawn = bool
     SetNuiFocus(bool, bool)
     SendNUIMessage({
         action = "showUi",
-        status = bool
+        status = bool,
+        translations = translations
     })
 end
 
