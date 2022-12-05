@@ -185,6 +185,12 @@ RegisterNUICallback('spawnplayer', function(data, cb)
         PostSpawnPlayer()
     elseif type == "house" then
         PreSpawnPlayer()
+            
+        if insideMeta.house ~= nil then
+        local houseId = insideMeta.house
+        TriggerEvent('qb-houses:client:LastLocationHouse', houseId)
+        end
+        
         TriggerEvent('qb-houses:client:enterOwnedHouse', location)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
