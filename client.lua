@@ -192,6 +192,17 @@ RegisterNUICallback('spawnplayer', function(data, cb)
         PostSpawnPlayer()
     elseif type == "house" then
         PreSpawnPlayer()
+        QBCore.Functions.GetPlayerData(function(pd)
+            ped = PlayerPedId()
+            SetEntityCoords(ped, Houses[location].coords.enter.x, Houses[location].coords.enter.y, Houses[location].coords.enter.z)
+            SetEntityHeading(ped, pd.position.a)
+            FreezeEntityPosition(ped, false)
+        end)
+        if insideMeta.house ~= nil then
+            local houseId = insideMeta.house
+            TriggerEvent('qb-houses:client:LastLocationHouse', houseId)
+        end
+         
         TriggerEvent('qb-houses:client:enterOwnedHouse', location)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
