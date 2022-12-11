@@ -95,7 +95,7 @@
                         }
                     },
                     translate(phrase) {
-                        return viewmodel.translations[phrase] || phrase;
+                        return viewmodel.translations[phrase] || `Could not find phrase: ${phrase}`;
                     }
                 },
 
