@@ -1,5 +1,5 @@
 local Translations = {
-    showUi = {
+    ui = {
         last_location = "Última ubicación",
         confirm = "Confirmar",
         where_would_you_like_to_start = "¿Por dónde te gustaría empezar?",
