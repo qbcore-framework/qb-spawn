@@ -9,40 +9,58 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
 
-    <script type="text/javascript" src="vue.js"></script>
-
+    <script src="vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"/>
 </head>
     <body>
-        <v-app data-app>
-            <div id="app" class="noselect">
-                <div class="spawn-locations" :class="{'slide-top-fade-leave-active': show == false, 'slide-top-fade-leave-to': show == false}">
-                    <div class="spawn_locations-header"><p><span id="null">Where would you like to start?</span></p></div>
-
-                    <v-btn 
-                        elevation="0" color="#00000000" v-if="newChar !== true" class="location" x-large v-ripple 
-                        :class="{'selected': 'current' == selectedValue.type && 'current' == selectedValue.name}" 
-                        @click="click_location('current', 'current')"
-                    >
-                        Last Location
-                    </v-btn>
-
-                    <div v-for="(locations, locationGroupIdx) in positions">
-                        <v-btn 
-                            v-for="(location, locationIdx) in locations"
-                            :key="locationGroupIdx + '-' + locationIdx"
-                            elevation="0" color="#00000000" 
-                            :class="{'selected': locationGroupIdx == selectedValue.type && ((locationGroupIdx !== 'house' && locationIdx == selectedValue.name) || (locationGroupIdx == 'house' && location.house == selectedValue.name))}" 
-                            class="location" x-large v-ripple @click="click_location(locationGroupIdx, locationGroupIdx == 'house' ? location.house : locationIdx)"
+        <v-app data-app> 
+            <div id="app">
+                <div class="container">           
+                    <div class="noselect">
+                        <div 
+                            class="spawn-locations" 
+                            :class="{'slide-top-fade-leave-active': show == false, 'slide-top-fade-leave-to': show == false}"
                         >
-                            {{ location.label }}
-                        </v-btn>
-                    </div>
+                            <div class="spawn_locations-header">
+                                <p>
+                                    <span id="null">{{translate('where_would_you_like_to_start')}}</span>
+                                </p>
+                            </div>
 
-                    <v-btn @click="submit_spawn" v-ripple x-large class="submit-spawn" v-if="selectedValue.type !== '' && selectedValue.name !== ''">Confirm</v-btn>
+                            <v-btn 
+                                elevation="0" color="#00000000" v-if="newChar !== true" class="location" x-large v-ripple 
+                                :class="{'selected': 'current' == selectedValue.type && 'current' == selectedValue.name}" 
+                                @click="click_location('current', 'current')"
+                            >
+                                {{translate('last_location')}}
+                            </v-btn>
+
+                            <div v-for="(locations, locationGroupIdx) in positions">
+                                <v-btn 
+                                    v-for="(location, locationIdx) in locations"
+                                    :key="locationGroupIdx + '-' + locationIdx"
+                                    elevation="0" color="#00000000" 
+                                    :class="{'selected': locationGroupIdx == selectedValue.type && ((locationGroupIdx !== 'house' && locationIdx == selectedValue.name) || (locationGroupIdx == 'house' && location.house == selectedValue.name))}" 
+                                    class="location" x-large v-ripple @click="click_location(locationGroupIdx, locationGroupIdx == 'house' ? location.house : locationIdx)"
+                                >
+                                    {{ location.label }}
+                                </v-btn>
+                            </div>
+
+                            <v-btn 
+                                @click="submit_spawn" 
+                                v-ripple 
+                                x-large 
+                                class="submit-spawn" 
+                                v-if="selectedValue.type !== '' && selectedValue.name !== ''"
+                            >
+                                {{translate('confirm')}}
+                            </v-btn>
+                        </div>
+                    </div>         
                 </div>
-            </div>
+            </div>   
         </v-app>
 
         <script>
@@ -62,7 +80,8 @@
                     },
 
                     newChar: false,
-                    show: false
+                    show: false,
+                    translations: {}
                 },
 
                 methods: {
@@ -89,6 +108,10 @@
                                 appType: data.name,
                             });
                         }
+                    },
+
+                    translate(phrase) {
+                        return viewmodel.translations[phrase] || `Could not find phrase: ${phrase}`;
                     }
                 },
 
@@ -98,7 +121,9 @@
                         switch(data.action) {
                             case "showUi":
                                 viewmodel.show = data.status
+                                viewmodel.translations = event.data.translations
                                 break;
+
                             case "setupLocations":
                                 viewmodel.positions = {normal: [], appartment: [], house: []}
                                 viewmodel.selectedValue = {type: "", index: -1}
@@ -107,6 +132,7 @@
                                 viewmodel.positions.house = data.houses
                                 viewmodel.newChar = data.isNew
                                 break;
+
                             case "setupAppartements":
                                 viewmodel.positions = {normal: [], appartment: [], house: []}
                                 viewmodel.selectedValue = {type: "", index: -1}
