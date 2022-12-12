@@ -92,12 +92,12 @@
                                 type: type,
                             });
                         }
-                        viewmodel.selectedValue = {type: type, name: name}
+                        this.selectedValue = {type: type, name: name}
                     },
 
                     submit_spawn: function() {
-                        viewmodel.show = false
-                        const data = viewmodel.selectedValue
+                        this.show = false
+                        const data = this.selectedValue
                         if (data.type !== "appartment") {
                             axios.post('https://qb-spawn/spawnplayer', {
                                 spawnloc: data.name,
@@ -111,7 +111,7 @@
                     },
 
                     translate(phrase) {
-                        return viewmodel.translations[phrase] || `Could not find phrase: ${phrase}`;
+                        return this.translations[phrase] || `Could not find phrase: ${phrase}`;
                     }
                 },
 
