@@ -50,6 +50,16 @@ end)
 
 RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
     if not new then
+        local spawns = {}
+        for k,v in pairs(QB.Spawns) do
+            if v.restricted then
+                if v.job == QBCore.Functions.GetPlayerData().job.name or v.gang == QBCore.Functions.GetPlayerData().gang.name then
+                    spawns[k] = v
+                end
+            else
+                spawns[k] = v
+            end
+        end
         QBCore.Functions.TriggerCallback('qb-spawn:server:getOwnedHouses', function(houses)
             local myHouses = {}
             if houses ~= nil then
@@ -60,11 +70,10 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
                     }
                 end
             end
-
             Wait(500)
             SendNUIMessage({
                 action = "setupLocations",
-                locations = QB.Spawns,
+                locations = spawns,
                 houses = myHouses,
                 isNew = new
             })
