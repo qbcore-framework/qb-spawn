@@ -51,11 +51,15 @@ QB.Spawns = {
         coords = vector4(1.1, -1.1, 1.1, 180.0), -- Coords player will be spawned
         location = "spawn1", -- Needs to be unique
         label = "Spawn 1 Name", -- This is the label which will show up in selection menu.
+        restricted = true, -- false if a public spawn
+        job = "ambulance" -- only if restricted is true
     },
     ["spawn2"] = { -- Needs to be unique
         coords = vector4(1.1, -1.1, 1.1, 180.0), -- Coords player will be spawned
         location = "spawn2", -- Needs to be unique
         label = "Spawn 2 Name", -- This is the label which will show up in selection menu.
+        restricted = true, -- false if a public spawn
+        gang = "ballas" -- if a gang spawn
     },
 }
 ```
