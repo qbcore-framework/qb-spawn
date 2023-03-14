@@ -1,27 +1,25 @@
 QB = {}
 
 QB.Spawns = {
-    ["legion"] = {
-        coords = vector4(195.17, -933.77, 29.7, 144.5),
-        location = "legion",
-        label = "Legion Square",
+    ["pillbox"] = {
+        coords = vector4(283.37, -613.39, 43.31, 9.72),
+        location = "pillbox",
+        label = "Pillbox Hospital",
+        restricted = true,
+        job = "ambulance"
     },
-
+    ["ballas"] = {
+        coords = vector4(-1882.2, 2047.4, 140.97, 158.05),
+        location = "ballas",
+        label = "[Gang] Ballas",
+        restricted = true,
+        gang = "ballas"
+    },
     ["policedp"] = {
         coords = vector4(428.23, -984.28, 29.76, 3.5),
         location = "policedp",
         label = "Police Department",
-    },
-
-    ["paleto"] = {
-        coords = vector4(80.35, 6424.12, 31.67, 45.5),
-        location = "paleto",
-        label = "Paleto Bay",
-    },
-
-    ["motel"] = {
-        coords = vector4(327.56, -205.08, 53.08, 163.5),
-        location = "motel",
-        label = "Motels",
+        restricted = true,
+        job = "police"
     },
 }
