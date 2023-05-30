@@ -86,7 +86,7 @@
 
                 methods: {
                     click_location: function(type, name) {
-                        if (type == "normal") { 
+                        if (type == "normal" || type == 'current') { 
                             axios.post('https://qb-spawn/setCam', {
                                 posname: name,
                                 type: type,
