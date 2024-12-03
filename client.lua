@@ -15,7 +15,7 @@ local cam2 = nil
 local function SetDisplay(bool)
     local translations = {}
     for k in pairs(Lang.fallback and Lang.fallback.phrases or Lang.phrases) do
-        if k:sub(0, #'ui.') then
+        if k:sub(0, #'ui.') == "ui." then
             translations[k:sub(#'ui.' + 1)] = Lang:t(k)
         end
     end
